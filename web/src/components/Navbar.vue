@@ -40,6 +40,7 @@ export default {
     justify-content: flex-end;
     align-items: center;
     color: #1a1a1a;
+    z-index: 2;
   }
 
   #nav a {

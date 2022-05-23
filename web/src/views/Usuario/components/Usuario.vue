@@ -7,50 +7,67 @@
         <div class="input-container">
           <label for="name-input">Nome do Usuário:</label>
           <div class="input-box">
-            <input type="text" name="name" id="name-input" v-model="name.name" placeholder="Nome">
+            <input type="text" name="name" id="name-input" v-model="usuario.name" placeholder="Nome">
             <AccountIcon />
           </div>
         </div>
         <div class="input-container">
           <label for="city-input">Cidade do Usuário:</label>
           <div class="input-box">
-            <input type="text" name="city" id="city-input" v-model="city" placeholder="City">
+            <input type="text" name="city" id="city-input" v-model="usuario.city" placeholder="City">
             <CityVariantIcon />
           </div>
         </div>
         <div class="input-container">
           <label for="address-input">Endereço do Usuário:</label>
           <div class="input-box">
-            <input type="text" name="address" id="address-input" v-model="address" placeholder="Address">
+            <input type="text" name="address" id="address-input" v-model="usuario.address" placeholder="Address">
             <HomeCityIcon />
           </div>
         </div>
         <div class="input-container">
           <label for="email-input">Email do Usuário:</label>
           <div class="input-box">
-            <input type="text" name="email" id="email-input" v-model="email" placeholder="Email">
+            <input type="text" name="email" id="email-input" v-model="usuario.email" placeholder="Email">
             <EmailIcon />
           </div>
         </div>
         <div class="input-container">
           <input class="submit-btn" type="button" value="fechar">
-          <input class="cancel-btn" type="submit" value="Salvar">
+          <input class="cancel-btn" @click="this.inserir()" type="button" value="Salvar">
         </div>
       </form>
     </div>
-    <!-- <input type="text" v-for="name in name" :key="name.id" :value="name.name"> -->
-    <!-- <div v-for="name in name" :key="name.id">{{name.name}}</div>
-    <div v-for="name in name" :key="name.id">{{name.email}}</div> -->
     <div>{{ usuarios }}</div>
     <div>
       <table>
         <thead>
           <th>Name</th>
+          <th>City</th>
+          <th>Address</th>
           <th>Email</th>
         </thead>
         <tbody>
-          <td v-for="usuario in usuarios" :key="usuario.id">{{usuario.name}}</td>
-          <td v-for="usuario in usuarios" :key="usuario.id">{{usuario.email}}</td>
+          <td>
+            <tr v-for="usuario in usuarios" :key="usuario.id">
+              {{usuario.name}}
+            </tr>
+          </td>
+          <td>
+            <tr v-for="usuario in usuarios" :key="usuario.id">
+              {{usuario.city}}
+            </tr>
+          </td>
+          <td>
+            <tr v-for="usuario in usuarios" :key="usuario.id">
+              {{usuario.address}}
+            </tr>
+          </td>
+          <td>
+            <tr v-for="usuario in usuarios" :key="usuario.id">
+              {{usuario.email}}
+            </tr>
+          </td>
         </tbody>
       </table>
     </div>
@@ -63,10 +80,7 @@ import CityVariantIcon from 'vue-material-design-icons/CityVariant.vue';
 import HomeCityIcon from 'vue-material-design-icons/HomeCity.vue';
 import EmailIcon from 'vue-material-design-icons/Email.vue';
 
-import api from '@/services/api.js'
 import usuarioAccess from '@/services/usuarioAccess.js'
-// import axios from 'axios'
-// import api from '../../../services/api'
 
 export default {
   name: 'Usuario',
@@ -86,35 +100,23 @@ export default {
         address: '',
         email: ''
       },
-      name: [],
-      city: null,
-      address: null,
-      email: null,
     }
   },
   methods: {
-    async getInfo(){
-      await api.get('/users').then(res => {
-        this.name = res.data.result;
-      })
-    },
     async buscarTodos() {
       await usuarioAccess.buscarTodos().then(res => {
         this.usuarios = res.data.result
-        // console.log(res.data.result);
       })
-      // console.log(this.usuarios);
+    },
+    async inserir() {
+      await usuarioAccess.inserir(this.usuario).then(res => {
+        const insertData = res.data
+        console.log(insertData);
+      })
     }
   },
   mounted() {
-    // this.getInfo()
     this.buscarTodos()
-    // inserir([])
-    // console.log(
-      
-    // );
-    // let resp = this.buscarTodos()
-    // console.log(resp);
   }
 }
 </script>
