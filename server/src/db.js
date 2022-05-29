@@ -7,6 +7,10 @@ const conn = mysql.createConnection({
   database: 'heroku_ee181f668ab5298',
 })
 
+setInterval(function () {
+  conn.query('SELECT 1');
+}, 5000);
+
 // conn.connect((error) => {
 //   if(error) throw error;
 //   console.log(`Conexão estabelecida com o banco de dados`);

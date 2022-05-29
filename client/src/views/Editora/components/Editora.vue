@@ -1,21 +1,18 @@
 <template>
   <div>
-    <!-- <h1>Usuario</h1> -->
-    <Modal class="modal" @close="toggleModal" @modalFunc="modalFunc" :modalActive="modalActive" :modalType="modalType" :usuarioAlterar="usuarioAlterar"/>
+    <Modal class="modal" @close="toggleModal" @modalFunc="modalFunc" :modalActive="modalActive" :modalType="modalType" :editoraAlterar="editoraAlterar"/>
 
     <div class="table-content">
       <div class="table-header-header">
-        <h2 class="table-tile">Usuários</h2>
+        <h2 class="table-tile">Editoras</h2>
         <button class="table-newitem-btn" @click="toggleModal(), changeModalType('inserir')" type="button">Novo</button>
           <el-input class="table-search-input" v-model="this.search" @keydown="searchItem" placeholder="Type to search" />
       </div>
       
-      <el-table :data="filterTableData">
+      <el-table :data="filterTableData" style="width: 600px;">
         <el-table-column prop="id" label="ID" width="80"/>
         <el-table-column prop="name" label="Nome" width="150"/>
         <el-table-column prop="city" label="Cidade" width="120"/>
-        <el-table-column prop="address" label="Endereço" width="180"/>
-        <el-table-column prop="email" label="Email" width="180"/>
         <el-table-column width="180" align="center">
         <template #header>
           Ações
@@ -37,14 +34,14 @@
 
 <script>
 
-import usuarioAccess from '@/services/usuarioAccess.js'
+import editoraAccess from '@/services/editoraAccess.js'
 import Modal from './Modal.vue'
 import { computed, ref } from 'vue'
 
 
 
 export default {
-  name: 'Usuario',
+  name: 'Editora',
   components: {
     Modal
   },
@@ -61,8 +58,8 @@ export default {
       modalType: '',
       filterTableData: [],
       search: '',
-      usuarios: [],
-      usuarioAlterar: {},
+      editoras: [],
+      editoraAlterar: {},
     }
   },
 
@@ -70,26 +67,23 @@ export default {
     changeModalType(type, obj) {
       if(type == 'inserir') this.modalType = 'inserir'
       if(type == 'alterar') {
-        this.usuarioAlterar = obj
-        console.log(obj);
+        this.editoraAlterar = obj
         this.modalType = 'alterar'
         this.toggleModal()
       }
     },
-    modalFunc(task, usuario) {
-      console.log(usuario);
+    modalFunc(task, editora) {
+      console.log(editora);
       console.log(task);
-      if(task == 'inserir') this.inserir(usuario);
-      if(task == 'alterar') this.alterar(usuario);
-      // this.modalType = 'inserir'
-      // this.usuarioAlterar = {}
+      if(task == 'inserir') this.inserir(editora);
+      if(task == 'alterar') this.alterar(editora);
     },
     handleDelete(obj) {
       this.deletar(obj.id)
     },
     searchItem() {
     this.filterTableData = computed(() =>
-      this.usuarios.filter(
+      this.editoras.filter(
         (data) =>
           !this.search ||
           data.name.toLowerCase().includes(this.search.toLowerCase())
@@ -98,28 +92,23 @@ export default {
     },
 
     async buscarTodos() {
-      await usuarioAccess.buscarTodos().then(res => {
-        this.usuarios = res.data.result
+      await editoraAccess.buscarTodos().then(res => {
+        this.editoras = res.data.result
       })
     },
-    async inserir(usuario) {
-      await usuarioAccess.inserir(usuario).then(res => {
-        const insertData = res.data
+    async inserir(editora) {
+      await editoraAccess.inserir(editora).then(res => {
         this.reloadData()
-        console.log(insertData);
       })
     },
-    async alterar(usuario) {
-      await usuarioAccess.alterar(usuario.id, usuario).then(res => {
-        // this.usuarioAlterar = res.data
+    async alterar(editora) {
+      await editoraAccess.alterar(editora.id, editora).then(res => {
         this.reloadData()
-        console.log(res.data);
       })
     },
     async deletar(id) {
-      await usuarioAccess.deletar(id).then(res => {
+      await editoraAccess.deletar(id).then(res => {
         this.reloadData()
-        console.log(res.data);
       })
     },
     reloadData() {

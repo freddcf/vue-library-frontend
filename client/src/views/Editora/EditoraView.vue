@@ -1,11 +1,14 @@
 <template>
   <div class="main-container">
-    <h1>Editora</h1>
+    <Editora />
   </div>
 </template>
 
 <script>
+import Editora from './components/Editora.vue';
 export default {
-  
+  components: {
+    Editora
+  }
 }
 </script>

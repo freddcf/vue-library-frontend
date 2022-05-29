@@ -5,9 +5,6 @@ export default {
   buscarTodos: () => {
     return api.get('/users')
   },
-  buscarUm: (id) => {
-    return api.get(`/users/${id}`)
-  },
   inserir: (usuario) => {
     return api.post('/users', usuario)
   },

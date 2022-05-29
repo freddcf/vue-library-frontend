@@ -3,37 +3,21 @@
     <div v-show="modalActive" class="modal-wrapper">
       <form v-show="modalActive" id="user-form" @submit="enviarFormulario($event)">
       <!-- Modal content -->
-        <h2>Cadastrar usuário</h2>
+        <h2>Cadastrar editora</h2>
         <div class="input-container">
-          <label for="name-input">Nome do Usuário:</label>
+          <label for="name-input">Nome da Editora:</label>
           <div class="input-box">
-            <input v-if="modalType == 'inserir'" type="text" name="name" id="name-input" v-model="usuario.name">
-            <input v-if="modalType == 'alterar'" type="text" name="name" id="name-input" v-model="usuarioAlterar.name">
-            <AccountIcon />
+            <input v-if="modalType == 'inserir'" type="text" name="name" id="name-input" v-model="editora.name">
+            <input v-if="modalType == 'alterar'" type="text" name="name" id="name-input" v-model="editoraAlterar.name">
+            <BookshelfIcon />
           </div>
         </div>
         <div class="input-container">
-          <label for="city-input">Cidade do Usuário:</label>
+          <label for="city-input">Cidade da Editora:</label>
           <div class="input-box">
-            <input v-if="modalType == 'inserir'" type="text" name="city" id="city-input" v-model="usuario.city">
-            <input v-if="modalType == 'alterar'" type="text" name="city" id="city-input" v-model="usuarioAlterar.city">
-            <CityVariantIcon />
-          </div>
-        </div>
-        <div class="input-container">
-          <label for="address-input">Endereço do Usuário:</label>
-          <div class="input-box">
-            <input v-if="modalType == 'inserir'" type="text" name="address" id="address-input" v-model="usuario.address">
-            <input v-if="modalType == 'alterar'" type="text" name="address" id="address-input" v-model="usuarioAlterar.address">
-            <HomeCityIcon />
-          </div>
-        </div>
-        <div class="input-container">
-          <label for="email-input">Email do Usuário:</label>
-          <div class="input-box">
-            <input v-if="modalType == 'inserir'" type="text" name="email" id="email-input" v-model="usuario.email">
-            <input v-if="modalType == 'alterar'" type="text" name="email" id="email-input" v-model="usuarioAlterar.email">
-            <EmailIcon />
+            <input v-if="modalType == 'inserir'" type="text" name="city" id="city-input" v-model="editora.city">
+            <input v-if="modalType == 'alterar'" type="text" name="city" id="city-input" v-model="editoraAlterar.city">
+            <MapMarkerIcon />
           </div>
         </div>
         <div class="input-container">
@@ -46,21 +30,16 @@
 </template>
 
 <script>
-import AccountIcon from 'vue-material-design-icons/Account.vue';
-import CityVariantIcon from 'vue-material-design-icons/CityVariant.vue';
-import HomeCityIcon from 'vue-material-design-icons/HomeCity.vue';
-import EmailIcon from 'vue-material-design-icons/Email.vue';
-
+import BookshelfIcon from 'vue-material-design-icons/Bookshelf.vue';
+import MapMarkerIcon from 'vue-material-design-icons/MapMarker.vue';
 
 export default {
   name: 'Modal',
   components: {
-    AccountIcon,
-    CityVariantIcon,
-    HomeCityIcon,
-    EmailIcon,
-  },
-  props: ['modalActive', 'modalType', 'usuarioAlterar'],
+    BookshelfIcon,
+    MapMarkerIcon,
+},
+  props: ['modalActive', 'modalType', 'editoraAlterar'],
   setup(props, {emit}) {
     const close = () => {
       emit('close');
@@ -70,14 +49,12 @@ export default {
   },
   data() {
     return {
-      usuario: {
+      editora: {
         id: '',
         name: '',
         city: '',
-        address: '',
-        email: ''
       },
-      usuarioParaAlterar: this.usuarioAlterar
+      editoraParaAlterar: this.editoraAlterar
     }
   },
   methods: {
@@ -86,11 +63,10 @@ export default {
       this.close();
     },
     changeModalConfig(modalType) {
-      this.usuarioParaAlterar = this.usuarioAlterar
-      console.log(this.usuarioParaAlterar);
-      if(this.modalType == 'inserir') this.$emit('modalFunc', this.modalType, this.usuario)
-      if(this.modalType == 'alterar') this.$emit('modalFunc', this.modalType, this.usuarioParaAlterar)
-      this.usuario = {}
+      this.editoraParaAlterar = this.editoraAlterar
+      if(this.modalType == 'inserir') this.$emit('modalFunc', this.modalType, this.editora)
+      if(this.modalType == 'alterar') this.$emit('modalFunc', this.modalType, this.editoraParaAlterar)
+      this.editora = {}
     }
   },
 }

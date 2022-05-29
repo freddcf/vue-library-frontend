@@ -3,7 +3,7 @@ const db = require('../db')
 module.exports = {
   buscarTodos: () => {
     return new Promise((aceito, rejeitado) => {
-      db.query("SELECT * FROM users", (error, results) => {
+      db.query("SELECT * FROM editoras", (error, results) => {
         if(error) {
           rejeitado(error);
           return;
@@ -15,7 +15,7 @@ module.exports = {
 
   buscarUm: (id) => {
     return new Promise((aceito, rejeitado) => {
-      db.query("SELECT * FROM users WHERE id = ?", [id], (error, results) => {
+      db.query("SELECT * FROM editoras WHERE id = ?", [id], (error, results) => {
         if(error) {
           rejeitado(error);
           return;
@@ -29,11 +29,11 @@ module.exports = {
     })
   },
 
-  inserir: (name, city, address, email) => {
+  inserir: (name, city) => {
     return new Promise((aceito, rejeitado) => {
       db.query("SET auto_increment_increment = 1")
-      db.query("INSERT INTO users (name, city, address, email) VALUES (?, ?, ?, ?)", 
-        [name, city, address, email], 
+      db.query("INSERT INTO editoras (name, city) VALUES (?, ?)", 
+        [name, city], 
         (error, results) => {
           if(error) {
             rejeitado(error);
@@ -46,10 +46,10 @@ module.exports = {
     })
   },
 
-  alterar: (id, name, city, address, email) => {
+  alterar: (id, name, city) => {
     return new Promise((aceito, rejeitado) => {
-      db.query("UPDATE users SET name = ?, city = ?, address = ?, email = ? WHERE id = ?", 
-        [name, city, address, email, id], 
+      db.query("UPDATE editoras SET name = ?, city = ? WHERE id = ?", 
+        [name, city, id], 
         (error, results) => {
           if(error) {
             rejeitado(error);
@@ -64,7 +64,7 @@ module.exports = {
 
   excluir: (id) => {
     return new Promise((aceito, rejeitado) => {
-      db.query("DELETE FROM users WHERE id = ?", [id], (error, results) => {
+      db.query("DELETE FROM editoras WHERE id = ?", [id], (error, results) => {
         if(error) {
           rejeitado(error);
           return;
