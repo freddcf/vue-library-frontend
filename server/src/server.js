@@ -1,9 +1,7 @@
-require('dotenv').config({path:'variaveis.env'})
-
 const express = require('express')
 const cors = require('cors')
-const bodyParser = require('body-parser')
 
+const PORT = 21000
 const routes = require('./routes')
 
 const server = express()
@@ -14,6 +12,6 @@ server.use(express.json());
 
 server.use('/api', routes)
 
-server.listen(process.env.PORT, () => {
-  console.log(`Server running on http://localhost:${process.env.PORT}`);
+server.listen(process.env.PORT || PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 })

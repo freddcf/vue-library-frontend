@@ -61,7 +61,7 @@ module.exports = {
     let address = req.body.address
     let email = req.body.email
     
-    if(id && name && email){
+    if(id && name && city && address && email){
       await UserService.alterar(id, name, city, address, email)
       json.result = {
         id,
