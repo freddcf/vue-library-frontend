@@ -1,11 +1,11 @@
 <template>
   <nav id="nav">
     <div id="logo"><span class="logo-highlighed">WDA</span> Livraria</div>
-    <router-link to="/"><HomeIcon /> Home</router-link>
-    <router-link to="/usuario"><AccountEditIcon /> Usuário</router-link>
-    <router-link to="/editora"><BookshelfIcon /> Editora</router-link>
-    <router-link to="/livros"><BookPlusIcon /> Livros</router-link>
-    <router-link to="/aluguel"><BookAccountIcon /> Aluguel</router-link>
+    <router-link :class='{"selected": selected === 0 }' @click="changeSelected(0)" to="/"><HomeIcon /> Home</router-link>
+    <router-link :class='{"selected": selected === 1 }' @click="changeSelected(1)" to="/usuario"><AccountEditIcon /> Usuário</router-link>
+    <router-link :class='{"selected": selected === 2 }' @click="changeSelected(2)" to="/editora"><BookshelfIcon /> Editora</router-link>
+    <router-link :class='{"selected": selected === 3 }' @click="changeSelected(3)" to="/livros"><BookPlusIcon /> Livros</router-link>
+    <router-link :class='{"selected": selected === 4 }' @click="changeSelected(4)" to="/aluguel"><BookAccountIcon /> Aluguel</router-link>
   </nav>
 </template>
 
@@ -15,16 +15,26 @@ import AccountEditIcon from 'vue-material-design-icons/AccountEdit.vue';
 import BookshelfIcon from 'vue-material-design-icons/Bookshelf.vue';
 import BookPlusIcon from 'vue-material-design-icons/BookPlus.vue';
 import BookAccountIcon from 'vue-material-design-icons/BookAccount.vue';
+import { ref } from 'vue'
 
 export default {
   name: 'Navbar',
-  props: ['logo', 'alt'],
   components: {
     HomeIcon,
     AccountEditIcon,
     BookshelfIcon,
     BookPlusIcon,
     BookAccountIcon,
+  },
+  setup() {
+    const selected = ref(0)
+
+    const changeSelected = (i) => {
+      selected.value = i
+      // document.querySelector(".")
+    }
+
+    return { selected, changeSelected }
   }
 }
 </script>
@@ -56,6 +66,7 @@ export default {
     align-items: center;
     border-radius: 50px;
     gap: 5px;
+    transition: all .3s;
   }
 
   #nav a > * {
@@ -65,6 +76,10 @@ export default {
 
   #nav a:hover {
     background: #d6d6d6;
+  }
+
+  a.selected, #nav a.selected:hover {
+    background: #49C9A8;
   }
 
   #logo {
