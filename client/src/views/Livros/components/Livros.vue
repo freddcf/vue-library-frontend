@@ -14,9 +14,9 @@
         <el-table-column prop="name" label="Nome" width="130"/>
         <el-table-column prop="author" label="Autor" width="120"/>
         <el-table-column prop="editora" label="Editora" width="120"/>
-        <el-table-column prop="lancamento" label="Lançamento" width="120"/>
+        <el-table-column prop="lancamento" label="Lançamento" width="100"/>
         <el-table-column prop="quantidade" label="Quantidade" width="100" align="center"/>
-        <el-table-column width="180" align="center">
+        <el-table-column width="200" align="center">
         <template #header>
           Ações
         </template>

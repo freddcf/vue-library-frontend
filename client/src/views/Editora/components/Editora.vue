@@ -11,9 +11,9 @@
       
       <el-table :data="filterTableData" style="width: 600px;">
         <el-table-column prop="id" label="ID" width="80"/>
-        <el-table-column prop="name" label="Nome" width="150"/>
-        <el-table-column prop="city" label="Cidade" width="120"/>
-        <el-table-column width="180" align="center">
+        <el-table-column prop="name" label="Nome" width="160"/>
+        <el-table-column prop="city" label="Cidade" width="140"/>
+        <el-table-column width="220" align="center">
         <template #header>
           Ações
         </template>

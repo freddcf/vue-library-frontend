@@ -14,9 +14,9 @@
         <el-table-column prop="id" label="ID" width="80"/>
         <el-table-column prop="name" label="Nome" width="150"/>
         <el-table-column prop="city" label="Cidade" width="120"/>
-        <el-table-column prop="address" label="Endereço" width="180"/>
+        <el-table-column prop="address" label="Endereço" width="160"/>
         <el-table-column prop="email" label="Email" width="180"/>
-        <el-table-column width="180" align="center">
+        <el-table-column width="200" align="center">
         <template #header>
           Ações
         </template>
