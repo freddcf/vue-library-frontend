@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunklivraria_wda_web"]=self["webpackChunklivraria_wda_web"]||[]).push([[522],{1739:function(n,r,a){a.r(r),a.d(r,{default:function(){return o}});var e=a(3396);const i={class:"main-container"},u=(0,e._)("h1",null,"Aluguel de livros",-1),l=[u];function t(n,r,a,u,t,c){return(0,e.wg)(),(0,e.iD)("div",i,l)}var c={},s=a(89);const d=(0,s.Z)(c,[["render",t]]);var o=d}}]);
-//# sourceMappingURL=aluguel.3dd6a7cc.js.map
