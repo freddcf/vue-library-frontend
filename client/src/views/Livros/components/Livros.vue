@@ -1,18 +1,21 @@
 <template>
   <div>
-    <Modal class="modal" @close="toggleModal" @modalFunc="modalFunc" :modalActive="modalActive" :modalType="modalType" :editoraAlterar="editoraAlterar"/>
+    <Modal class="modal" @close="toggleModal" @modalFunc="modalFunc" :modalActive="modalActive" :modalType="modalType" :editoras="editoras" :livroAlterar="livroAlterar"/>
 
     <div class="table-content">
       <div class="table-header-header">
-        <h2 class="table-tile">Editoras</h2>
+        <h2 class="table-tile">Livros</h2>
         <button class="table-newitem-btn" @click="toggleModal(), changeModalType('inserir')" type="button">Novo</button>
           <el-input class="table-search-input" v-model="this.search" @keydown="searchItem" placeholder="Digite para pesquisar" />
       </div>
       
-      <el-table :data="filterTableData" style="width: 600px;">
+      <el-table :data="filterTableData">
         <el-table-column prop="id" label="ID" width="80"/>
-        <el-table-column prop="name" label="Nome" width="150"/>
-        <el-table-column prop="city" label="Cidade" width="120"/>
+        <el-table-column prop="name" label="Nome" width="130"/>
+        <el-table-column prop="author" label="Autor" width="120"/>
+        <el-table-column prop="editora" label="Editora" width="120"/>
+        <el-table-column prop="lancamento" label="Lançamento" width="120"/>
+        <el-table-column prop="quantidade" label="Quantidade" width="100" align="center"/>
         <el-table-column width="180" align="center">
         <template #header>
           Ações
@@ -28,12 +31,22 @@
         </template>
         </el-table-column>
       </el-table>
+      <div style="text-align: center">
+          <el-pagination
+              background
+              layout="prev, pager, next"
+              @current-change="handleCurrentChange"
+              :page-size="pageSize"
+              :total="total">
+          </el-pagination>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 
+import livroAccess from '@/services/livrosAccess.js'
 import editoraAccess from '@/services/editoraAccess.js'
 import Modal from './Modal.vue'
 import { computed, ref } from 'vue'
@@ -41,7 +54,7 @@ import { computed, ref } from 'vue'
 
 
 export default {
-  name: 'Editora',
+  name: 'Livros',
   components: {
     Modal
   },
@@ -59,7 +72,8 @@ export default {
       filterTableData: [],
       search: '',
       editoras: [],
-      editoraAlterar: {},
+      livros: [],
+      livroAlterar: {},
     }
   },
 
@@ -67,23 +81,26 @@ export default {
     changeModalType(type, obj) {
       if(type == 'inserir') this.modalType = 'inserir'
       if(type == 'alterar') {
-        this.editoraAlterar = obj
+        this.livroAlterar = obj
+        console.log(obj);
         this.modalType = 'alterar'
         this.toggleModal()
       }
     },
-    modalFunc(task, editora) {
-      console.log(editora);
+    modalFunc(task, livro) {
+      console.log(livro);
       console.log(task);
-      if(task == 'inserir') this.inserir(editora);
-      if(task == 'alterar') this.alterar(editora);
+      if(task == 'inserir') this.inserir(livro);
+      if(task == 'alterar') this.alterar(livro);
+      // this.modalType = 'inserir'
+      // this.livroAlterar = {}
     },
     handleDelete(obj) {
       this.deletar(obj.id)
     },
     searchItem() {
     this.filterTableData = computed(() =>
-      this.editoras.filter(
+      this.livros.filter(
         (data) =>
           !this.search ||
           data.name.toLowerCase().includes(this.search.toLowerCase())
@@ -92,23 +109,34 @@ export default {
     },
 
     async buscarTodos() {
+      await livroAccess.buscarTodos().then(res => {
+        this.livros = res.data.result
+      })
+      this.buscarTodasEditoras()
+    },
+    async buscarTodasEditoras() {
       await editoraAccess.buscarTodos().then(res => {
         this.editoras = res.data.result
       })
     },
-    async inserir(editora) {
-      await editoraAccess.inserir(editora).then(res => {
+    async inserir(livro) {
+      await livroAccess.inserir(livro).then(res => {
+        const insertData = res.data
         this.reloadData()
+        console.log(insertData);
       })
     },
-    async alterar(editora) {
-      await editoraAccess.alterar(editora.id, editora).then(res => {
+    async alterar(livro) {
+      await livroAccess.alterar(livro.id, livro).then(res => {
+        // this.livroAlterar = res.data
         this.reloadData()
+        console.log(res.data);
       })
     },
     async deletar(id) {
-      await editoraAccess.deletar(id).then(res => {
+      await livroAccess.deletar(id).then(res => {
         this.reloadData()
+        console.log(res.data);
       })
     },
     reloadData() {

@@ -7,7 +7,7 @@
       <div class="table-header-header">
         <h2 class="table-tile">Usuários</h2>
         <button class="table-newitem-btn" @click="toggleModal(), changeModalType('inserir')" type="button">Novo</button>
-          <el-input class="table-search-input" v-model="this.search" @keydown="searchItem" placeholder="Type to search" />
+          <el-input class="table-search-input" v-model="this.search" @keydown="searchItem" placeholder="Digite para pesquisar" />
       </div>
       
       <el-table :data="filterTableData">

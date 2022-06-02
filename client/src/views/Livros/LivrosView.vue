@@ -1,11 +1,14 @@
 <template>
   <div class="main-container">
-    <h1>Livros</h1>
+    <Livros />
   </div>
 </template>
 
 <script>
+import Livros from './components/Livros.vue'
 export default {
-  
+  components: {
+    Livros
+  }
 }
 </script>
