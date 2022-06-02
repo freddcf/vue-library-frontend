@@ -18,12 +18,12 @@
           Ações
         </template>
         <template #default="scope">
-          <el-button @click="changeModalType('alterar', scope.row)">Edit</el-button
+          <el-button @click="changeModalType('alterar', scope.row)">Editar</el-button
             >
             <el-button
               type="danger"
               @click="handleDelete(scope.row)"
-              >Delete
+              >Deletar
             </el-button>
         </template>
         </el-table-column>
