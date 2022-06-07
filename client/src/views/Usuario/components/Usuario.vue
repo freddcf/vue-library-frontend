@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <h1>Usuario</h1> -->
     <Modal class="modal" @close="toggleModal" @modalFunc="modalFunc" :modalActive="modalActive" :modalType="modalType" :usuarioAlterar="usuarioAlterar"/>
 
     <div class="table-content">
@@ -81,8 +80,6 @@ export default {
       console.log(task);
       if(task == 'inserir') this.inserir(usuario);
       if(task == 'alterar') this.alterar(usuario);
-      // this.modalType = 'inserir'
-      // this.usuarioAlterar = {}
     },
     handleDelete(obj) {
       this.deletar(obj.id)
@@ -111,7 +108,6 @@ export default {
     },
     async alterar(usuario) {
       await usuarioAccess.alterar(usuario.id, usuario).then(res => {
-        // this.usuarioAlterar = res.data
         this.reloadData()
         console.log(res.data);
       })

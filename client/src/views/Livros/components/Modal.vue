@@ -72,7 +72,6 @@ import AccountIcon from 'vue-material-design-icons/Account.vue';
 import CityVariantIcon from 'vue-material-design-icons/CityVariant.vue';
 import HomeCityIcon from 'vue-material-design-icons/HomeCity.vue';
 import EmailIcon from 'vue-material-design-icons/Email.vue';
-import { ref } from 'vue'
 
 export default {
   name: 'Modal',
@@ -87,7 +86,6 @@ export default {
     const close = () => {
       emit('close');
     }
-    // const selectedBook = ref('')
 
     return { close }
   },
@@ -111,7 +109,6 @@ export default {
     },
     changeModalConfig(modalType) {
       this.livroParaAlterar = this.livroAlterar
-      console.log(this.livroParaAlterar);
       if(this.modalType == 'inserir') this.$emit('modalFunc', this.modalType, this.livro)
       if(this.modalType == 'alterar') this.$emit('modalFunc', this.modalType, this.livroParaAlterar)
       this.livro = {}

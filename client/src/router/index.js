@@ -1,5 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/Home/HomeView.vue'
+import UsuarioView from '../views/Usuario/UsuarioView.vue'
+import EditoraView from '../views/Editora/EditoraView.vue'
+import LivrosView from '../views/Livros/LivrosView.vue'
+import AluguelView from '../views/Aluguel/AluguelView.vue'
 
 const routes = [
   {
@@ -10,22 +14,22 @@ const routes = [
   {
     path: '/usuario',
     name: 'Usuario',
-    component: () => import(/* webpackChunkName: "usuario" */ '../views/Usuario/UsuarioView.vue')
+    component: UsuarioView
   },
   {
     path: '/editora',
     name: 'Editora',
-    component: () => import(/* webpackChunkName: "editora" */ '../views/Editora/EditoraView.vue')
+    component: EditoraView
   },
   {
     path: '/livros',
     name: 'Livros',
-    component: () => import(/* webpackChunkName: "livros" */ '../views/Livros/LivrosView.vue')
+    component: LivrosView
   },
   {
     path: '/aluguel',
     name: 'Aluguel',
-    component: () => import(/* webpackChunkName: "aluguel" */ '../views/Aluguel/AluguelView.vue')
+    component: AluguelView
   },
 ]
 

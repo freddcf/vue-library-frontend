@@ -5,7 +5,7 @@
     <router-link :class='{"selected": selected === 1 }' @click="changeSelected(1)" to="/usuario"><AccountEditIcon /> Usuário</router-link>
     <router-link :class='{"selected": selected === 2 }' @click="changeSelected(2)" to="/editora"><BookshelfIcon /> Editora</router-link>
     <router-link :class='{"selected": selected === 3 }' @click="changeSelected(3)" to="/livros"><BookPlusIcon /> Livros</router-link>
-    <router-link :class='{"selected": selected === 4 }' @click="changeSelected(4)" to="/aluguel"><BookAccountIcon /> Aluguel</router-link>
+    <!-- <router-link :class='{"selected": selected === 4 }' @click="changeSelected(4)" to="/aluguel"><BookAccountIcon /> Aluguel</router-link> -->
   </nav>
 </template>
 

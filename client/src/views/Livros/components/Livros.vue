@@ -14,7 +14,7 @@
         <el-table-column prop="name" label="Nome" width="130"/>
         <el-table-column prop="author" label="Autor" width="120"/>
         <el-table-column prop="editora" label="Editora" width="120"/>
-        <el-table-column prop="lancamento" label="Lançamento" width="100"/>
+        <el-table-column prop="lancamento" label="Lançamento" width="110"/>
         <el-table-column prop="quantidade" label="Quantidade" width="100" align="center"/>
         <el-table-column width="200" align="center">
         <template #header>
@@ -31,15 +31,6 @@
         </template>
         </el-table-column>
       </el-table>
-      <div style="text-align: center">
-          <el-pagination
-              background
-              layout="prev, pager, next"
-              @current-change="handleCurrentChange"
-              :page-size="pageSize"
-              :total="total">
-          </el-pagination>
-      </div>
     </div>
   </div>
 </template>
@@ -90,10 +81,12 @@ export default {
     modalFunc(task, livro) {
       console.log(livro);
       console.log(task);
-      if(task == 'inserir') this.inserir(livro);
-      if(task == 'alterar') this.alterar(livro);
-      // this.modalType = 'inserir'
-      // this.livroAlterar = {}
+      if(task == 'inserir' && livro.quantidade >= 0) {
+        if(this.checkDate(livro.lancamento)) this.inserir(livro);
+      }
+      if(task == 'alterar' && livro.quantidade >= 0){
+        if(this.checkDate(livro.lancamento)) this.alterar(livro)
+      }
     },
     handleDelete(obj) {
       this.deletar(obj.id)
@@ -121,28 +114,29 @@ export default {
     },
     async inserir(livro) {
       await livroAccess.inserir(livro).then(res => {
-        const insertData = res.data
         this.reloadData()
-        console.log(insertData);
       })
     },
     async alterar(livro) {
       await livroAccess.alterar(livro.id, livro).then(res => {
-        // this.livroAlterar = res.data
         this.reloadData()
-        console.log(res.data);
       })
     },
     async deletar(id) {
       await livroAccess.deletar(id).then(res => {
         this.reloadData()
-        console.log(res.data);
       })
     },
     reloadData() {
       setTimeout(() => {
         this.buscarTodos()
       }, 1000);
+    },
+    checkDate(str) {
+      let date = new Date(str.split('-').join('-'));
+      let novaData = new Date();
+      if(date > novaData) return false
+      return true
     }
   },
   mounted() {
